@@ -23,25 +23,36 @@ function findBoleto(id) {
     return boleto;
 }
 
+function adicionarBoleto(boleto) {
+    boleto.id = listaBoletos.length + 1;
+    listaBoletos.push(boleto);
+}
+
 router.get("/", (req, res) => {
     res.send(returnBoletos());
 })
 
 router.get("/:id", (req, res) => {
-    const user = findBoleto(req.params.id);
-    res.send(user);
+    const boleto = findBoleto(req.params.id);
+    res.send(boleto);
 })
 
-router.get("/:id", (req, res) => {
-    const user = findUsuario(req.params.id);
-    res.send(user);
-})
+// router.get("/:id", (req, res) => {
+//     const user = findUsuario(req.params.id);
+//     res.send(user);
+// })
 
 router.post("/", (req, res) => {
-    const user = req.body;
-    res.send(adicionarUsuario(user));
+    const boleto = req.body;
+    res.send(adicionarBoleto(boleto));
 })
 
 router.put("/:id", (req, res) => {
     res.send(editarUsuario(req.params.id, req.body));
 })
+
+module.exports = {
+    router,
+    returnBoletos,
+    findBoleto
+}
