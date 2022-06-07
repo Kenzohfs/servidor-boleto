@@ -1,12 +1,11 @@
 const express = require("express");
-const pessoas = require("../api/pessoas");
-const usuarios = require("../api/usuarios");
+// const { findPessoa } = require("./pessoas");
+// const { findUsuario } = require("./usuarios");
+const pessoas = require(findPessoa);
+const usuarios = require("./usuarios");
 const router = express.Router();
 
 router.use(express.json());
-
-router.use("/api/pessoas/", pessoas.router);
-router.use("/api/usuarios/", usuarios.router);
 
 const listaBoletos = [
     {
@@ -71,7 +70,6 @@ function getBoletosPessoa(id) {
             listaBoletosByPessoa.push(boleto);
         }
     })
-
     return listaBoletosByPessoa;
 }
 
@@ -85,7 +83,12 @@ router.get("/:id", (req, res) => {
 })
 
 router.get("/pessoa/:id", (req, res) => {
-    res.send(getBoletosPessoa(req.params.id));
+    const listaBoletosByPessoa = getBoletosPessoa(req.params.id);
+    if (listaBoletosByPessoa.length > 0) {
+        res.send(listaBoletosByPessoa);
+    } else {
+        res.status(400).send("Não há boletos registrados para essa pessoa!")
+    }
 })
 
 router.post("/", (req, res) => {
@@ -105,5 +108,8 @@ module.exports = {
     router,
     returnBoletos,
     findBoleto,
-    editarBoleto
+    adicionarBoleto,
+    editarBoleto,
+    verificarBoleto,
+    getBoletosPessoa
 }

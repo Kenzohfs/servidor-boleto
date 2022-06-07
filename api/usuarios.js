@@ -1,4 +1,5 @@
 const express = require('express');
+const boletos = require("./boletos");
 const router = express.Router();
 
 router.use(express.json());
@@ -56,6 +57,9 @@ function verificacaoUser(user) {
     }
 }
 
+function verificarDeletar(id) {
+}
+
 router.get("/", (req, res) => {
     res.send(returnUsuario());
 })
@@ -80,14 +84,21 @@ router.put("/:id", (req, res) => {
 })
 
 router.delete("/:id", (req, res) => {
-    res.send(deletarUsuario(req.params.id));
+    const boleto = boletos.findBoleto(req.params.id);
+    console.log(boleto);
+    if (verificarDeletar(req.params.id)) {
+        res.send(deletarUsuario(req.params.id));
+    } else {
+        res.status(400).send("Não é possível deletar este usuário pois há um boleto associado ao seu ID!");
+    }
 })
 
 module.exports = {
     router,
-    returnUsuario,
     findUsuario,
+    returnUsuario,
     adicionarUsuario,
     editarUsuario,
     deletarUsuario
 }
+

@@ -79,8 +79,8 @@ router.delete("/:id", (req, res) => {
 
 module.exports = {
     router,
-    returnPessoa,
     findPessoa,
+    returnPessoa,
     adicionarPessoa,
     editarPessoa,
     deletarPessoa
