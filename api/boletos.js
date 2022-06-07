@@ -1,10 +1,12 @@
 const express = require("express");
 const pessoas = require("../api/pessoas");
+const usuarios = require("../api/usuarios");
 const router = express.Router();
 
 router.use(express.json());
 
 router.use("/api/pessoas/", pessoas.router);
+router.use("/api/usuarios/", usuarios.router);
 
 const listaBoletos = [
     {
@@ -47,12 +49,30 @@ function editarBoleto(id, boleto) {
 }
 
 function verificarBoleto(boleto) {
-    if (boleto.id_pessoa && boleto.valor && boleto.id_user && boleto.status && boleto.nome_pessoa) {
+    if (boleto.id_pessoa && boleto.valor && boleto.id_user && boleto.status) {
         const pessoa = pessoas.findPessoa(boleto.id_pessoa);
-        console.log(pessoa);
+        const usuario = usuarios.findUsuario(boleto.id_user);
+
+        if (pessoa && usuario && boleto.valor > 0) {
+            boleto.nome_pessoa = pessoa.nome;
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
+}
+
+function getBoletosPessoa(id) {
+    const listaBoletosByPessoa = [];
+    listaBoletos.forEach((boleto) => {
+        if (boleto.id_pessoa == id) {
+            listaBoletosByPessoa.push(boleto);
+        }
+    })
+
+    return listaBoletosByPessoa;
 }
 
 router.get("/", (req, res) => {
@@ -65,6 +85,7 @@ router.get("/:id", (req, res) => {
 })
 
 router.get("/pessoa/:id", (req, res) => {
+    res.send(getBoletosPessoa(req.params.id));
 })
 
 router.post("/", (req, res) => {
