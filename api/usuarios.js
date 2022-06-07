@@ -5,12 +5,12 @@ router.use(express.json());
 
 const listaUsuarios = [
     {
-        id: 1, 
+        id: 1,
         nome: "KenzoUser",
         senha: 111111
     },
     {
-        id: 2, 
+        id: 2,
         nome: "MariaUser",
         senha: 111111
     },
@@ -26,8 +26,14 @@ function findUsuario(id) {
 }
 
 function adicionarUsuario(user) {
-    user.id = listaUsuarios.length + 1;
-    listaUsuarios.push(user);
+    if (verificacaoUser(user)) {
+        user.id = listaUsuarios.length + 1;
+        listaUsuarios.push(user);
+        return user;
+    } else {
+        return "Usuário não foi criado!";
+    }
+
 }
 
 function editarUsuario(id, user) {
@@ -42,6 +48,14 @@ function deletarUsuario(id) {
     return listaUsuarios;
 }
 
+function verificacaoUser(user) {
+    if (user.nome && user.senha) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 router.get("/", (req, res) => {
     res.send(returnUsuario());
 })
@@ -52,8 +66,13 @@ router.get("/:id", (req, res) => {
 })
 
 router.post("/", (req, res) => {
-    const user = req.body;
-    res.send(adicionarUsuario(user));
+    const usuario = adicionarUsuario(req.body);
+
+    if (!typeof usuario == "string") {
+        res.send(usuario)
+    } else {
+        res.status(400).send(usuario)
+    }
 })
 
 router.put("/:id", (req, res) => {

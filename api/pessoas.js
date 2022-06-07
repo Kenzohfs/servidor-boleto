@@ -28,6 +28,7 @@ function findPessoa(id) {
 function adicionarPessoa(pessoa) {
     pessoa.id = listaPessoas.length + 1;
     listaPessoas.push(pessoa);
+    return pessoa;
 }
 
 function editarPessoa(id, pessoa) {
@@ -42,6 +43,14 @@ function deletarPessoa(id) {
     return listaPessoas;
 }
 
+function verificarPessoa(pessoa) {
+    if (pessoa.nome && pessoa.cpf) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 router.get("/", (req, res) => {
     res.send(returnPessoa());
 })
@@ -53,7 +62,11 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
     const pessoa = req.body;
-    res.send(adicionarPessoa(pessoa));
+    if (verificarPessoa(pessoa)) {
+        res.send(adicionarPessoa(pessoa));
+    } else {
+        res.status(400).send("Pessoa não foi cadastrada!");
+    }
 })
 
 router.put("/:id", (req, res) => {
