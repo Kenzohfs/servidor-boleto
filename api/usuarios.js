@@ -1,5 +1,7 @@
 const express = require('express');
-const boletos = require("./boletos");
+// const boletos = require("./boletos").findBoleto;
+// const findBoleto = require("./boletos").findBoleto;
+
 const router = express.Router();
 
 router.use(express.json());
@@ -84,7 +86,7 @@ router.put("/:id", (req, res) => {
 })
 
 router.delete("/:id", (req, res) => {
-    const boleto = boletos.findBoleto(req.params.id);
+    const boleto = boletos(req.params.id);
     console.log(boleto);
     if (verificarDeletar(req.params.id)) {
         res.send(deletarUsuario(req.params.id));

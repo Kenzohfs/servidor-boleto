@@ -1,8 +1,12 @@
 const express = require("express");
 // const { findPessoa } = require("./pessoas");
 // const { findUsuario } = require("./usuarios");
-const pessoas = require(findPessoa);
-const usuarios = require("./usuarios");
+// const pessoas = require("./pessoas").findPessoa;
+// const usuarios = require("./usuarios").findUsuario;
+
+const findPessoa = require("./pessoas").findPessoa;
+const findUsuario = require("./usuarios").findUsuario;
+
 const router = express.Router();
 
 router.use(express.json());
@@ -49,8 +53,10 @@ function editarBoleto(id, boleto) {
 
 function verificarBoleto(boleto) {
     if (boleto.id_pessoa && boleto.valor && boleto.id_user && boleto.status) {
-        const pessoa = pessoas.findPessoa(boleto.id_pessoa);
-        const usuario = usuarios.findUsuario(boleto.id_user);
+        const pessoa = findPessoa(boleto.id_pessoa);
+        console.log(pessoa);
+        const usuario = findUsuario(boleto.id_user);
+        console.log(usuario)
 
         if (pessoa && usuario && boleto.valor > 0) {
             boleto.nome_pessoa = pessoa.nome;
