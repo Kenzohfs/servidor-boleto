@@ -6,8 +6,8 @@ const listaUsuarios = [
     },
     {
         id: 2,
-        nome: "MariaUser",
-        senha: 111111
+        nome: "HideakyUser",
+        senha: 22222
     },
 ]
 
@@ -21,8 +21,8 @@ function returnUsuario() {
 }
 
 function adicionarUsuario(user) {
-    user.id = listaPessoas.length + 1;
-    listaPessoas.push(user);
+    user.id = listaUsuarios.length + 1;
+    listaUsuarios.push(user);
     return user;
 }
 
@@ -46,12 +46,13 @@ function verificarUser(user) {
 }
 
 function verificarDeletar(listaBoletos, idUser) {
+    let verificador = true;
     listaBoletos.forEach((boleto) => {
         if (boleto.id_user == idUser) {
-            return false;
+            verificador = false;
         }
     })
-    return true;
+    return verificador;
 }
 
 module.exports = {

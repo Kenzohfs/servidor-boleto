@@ -6,8 +6,8 @@ const listaPessoas = [
     },
     {
         id: 2,
-        nome: "Maria",
-        cpf: 111111
+        nome: "Hideaky",
+        cpf: 22222
     },
 ]
 
@@ -46,12 +46,13 @@ function verificarPessoa(pessoa) {
 }
 
 function verificarDeletar(listaBoletos, idPessoa) {
+    verificador = true;
     listaBoletos.forEach((boleto) => {
-        if (boleto.id_user == idPessoa) {
-            return false;
+        if (boleto.id_pessoa == idPessoa) {
+            verificador = false;
         }
     })
-    return true;
+    return verificador;
 }
 
 module.exports = {

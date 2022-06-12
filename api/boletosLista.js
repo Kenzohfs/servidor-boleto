@@ -4,15 +4,23 @@ const listaBoletos = [
         valor: 30,
         id_user: 1,
         id_pessoa: 2,
-        status: 100,
-        nome_pessoa: "Maria"
+        status: "Aberto",
+        nome_pessoa: "Hideaky"
     },
     {
         id_boleto: 2,
         valor: 30,
         id_user: 1,
-        id_pessoa: 2,
-        status: 100,
+        id_pessoa: 1,
+        status: "Fechado",
+        nome_pessoa: "Kenzo"
+    }, 
+    {
+        id_boleto: 3,
+        valor: 150,
+        id_user: 2,
+        id_pessoa: 1,
+        status: "Aberto",
         nome_pessoa: "Kenzo"
     }
 ]
@@ -39,9 +47,10 @@ function editarBoleto(id, boleto) {
 }
 
 function verificarBoleto(boleto, pessoa, usuario) {
-    if (boleto.id_pessoa && boleto.valor && boleto.id_user && boleto.status) {
+    if (boleto.id_pessoa && boleto.valor && boleto.id_user) {
         if (pessoa && usuario && boleto.valor > 0) {
             boleto.nome_pessoa = pessoa.nome;
+            boleto.status = "Aberto";
             return true;
         }
     }

@@ -1,5 +1,6 @@
 const express = require('express');
 const pessoas = require('./pessoasLista');
+const boletos = require('./boletosLista');
 const router = express.Router();
 
 router.use(express.json());
@@ -18,7 +19,7 @@ router.post("/", (req, res) => {
     if (pessoas.verificarPessoa(pessoa)) {
         res.send(pessoas.adicionarPessoa(pessoa));
     } else {
-        res.status(400).send("Pessoa não foi cadastrada!");
+        res.status(400).send("Insira todos os dados para cadastrar uma pessoa!");
     }
 })
 

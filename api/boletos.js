@@ -31,7 +31,7 @@ router.post("/", (req, res) => {
     if (boletos.verificarBoleto(boleto, pessoas.findPessoa(boleto.id_pessoa), usuarios.findUsuario(boleto.id_user))) {
         res.send(boletos.adicionarBoleto(boleto));
     } else {
-        res.status(400).send("Não foi possível cadastrar um boleto!")
+        res.status(400).send("Insira todos os dados para cadastrar um boleto!")
     }
 })
 

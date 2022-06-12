@@ -17,10 +17,10 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
     const usuario = req.body;
-    if (usuarios.verificarUsuario(usuario)) {
+    if (usuarios.verificarUser(usuario)) {
         res.send(usuarios.adicionarUsuario(usuario));
     } else {
-        res.status(400).send("Usuario não foi cadastrada!");
+        res.status(400).send("Insira todos os dados para cadastrar um usuário!");
     }
 })
 
