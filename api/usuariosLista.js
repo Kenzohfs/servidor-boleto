@@ -56,7 +56,6 @@ function verificarDeletar(listaBoletos, idUser) {
 }
 
 module.exports = {
-    listaUsuarios,
     findUsuario,
     returnUsuario,
     adicionarUsuario,

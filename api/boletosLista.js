@@ -14,7 +14,7 @@ const listaBoletos = [
         id_pessoa: 1,
         status: "Fechado",
         nome_pessoa: "Kenzo"
-    }, 
+    },
     {
         id_boleto: 3,
         valor: 150,
@@ -47,12 +47,10 @@ function editarBoleto(id, boleto) {
 }
 
 function verificarBoleto(boleto, pessoa, usuario) {
-    if (boleto.id_pessoa && boleto.valor && boleto.id_user) {
-        if (pessoa && usuario && boleto.valor > 0) {
-            boleto.nome_pessoa = pessoa.nome;
-            boleto.status = "Aberto";
-            return true;
-        }
+    if (pessoa && usuario && boleto.valor > 0) {
+        boleto.nome_pessoa = pessoa.nome;
+        boleto.status = "Aberto";
+        return true;
     }
     return false;
 }
@@ -68,7 +66,6 @@ function getBoletosPessoa(id) {
 }
 
 module.exports = {
-    listaBoletos,
     returnBoletos,
     findBoleto,
     adicionarBoleto,

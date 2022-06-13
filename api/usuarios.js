@@ -30,8 +30,12 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
     const id = req.params.id;
-    if (usuarios.verificarDeletar(boletos.listaBoletos, id)) {
-        res.send(usuarios.deletarUsuario(id));
+    if (usuarios.verificarDeletar(boletos.returnBoletos(), id)) {
+        if (usuarios.findUsuario(id)) {
+            res.send(usuarios.deletarUsuario(id));
+        } else {
+            res.status(400).send("Não existe um usuário com este ID!")
+        }
     } else {
         res.status(400).send("Não é possível deletar este usuário pois há um boleto associado ao seu ID!");
     }
